@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  natural-ce:
+    image: softwareag/natural-ce:9.2.1
+    ports:
+      - "2700:2700"
+    extra_hosts:
+      - "adabas-db:YOUR_IP"
+    environment:
+      - ACCEPT_EULA=Y
+    container_name: natural-ce
+
+  adabas-ce:
+    image: softwareag/adabas-ce:7.1.1
+    ports:
+      - "60001:60001"
+      - "8190:8190"
+    environment:
+      - ACCEPT_EULA=Y
+      - ADADBID=12
+      - ADA_DB_CREATION=demodb
+    container_name: adabas-db
+
+  adabasmanager-ce:
+    image: softwareag/adabasmanager-ce:9.1.0.1
+    ports:
+      - "4990:4990"
+    environment:
+      - ACCEPT_EULA=Y
+    container_name: adabas-manager
